@@ -30,6 +30,21 @@ async def insert_article(title,tags,banner,contenido):
         st.error(f'Error al subir el banner: {e}')
 
 
+def get_articles():
+    try:
+        response = xata.query("Articulo")
+        return response
+    except Exception as e:
+        st.error(f'Error: {e}')
+        return None
+
+
+def update_articles():
+    st.session_state.articles = get_articles()['records']
+
+if 'articles' not in st.session_state:
+    st.session_state.articles = get_articles()['records']
+
 
 st.title('Añadir Articulo')
 
@@ -69,4 +84,5 @@ with st.form(key='editor_form'):
 if titulo != '' and contenido and len(tg) > 0:
     if st.button('Publicar',use_container_width=True):
         asyncio.run(insert_article(titulo,tg,banner,contenido))
+        update_articles()
 
