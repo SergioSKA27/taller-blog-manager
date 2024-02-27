@@ -62,7 +62,6 @@ def render_article(article):
         bc1.button('Editar',key=f'edit_{article["id"]}',use_container_width=True,on_click=set_editor,args=(article,))
         bc2.button(':red[Eliminar]',on_click=delete_article,args=(article['id'],),key=f'delete_{article["id"]}',use_container_width=True)
 
-
 def render_editor():
     cc,cb = st.columns([0.9,0.1])
     cc.header('Editar Articulo')
@@ -113,7 +112,6 @@ def render_editor():
                 st.rerun()
             except Exception as e:
                 st.error(f'Error: {e}')
-
 
 if 'articles' not in st.session_state:
     st.session_state.articles = get_articles()['records']
