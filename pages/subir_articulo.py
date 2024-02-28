@@ -1,11 +1,11 @@
 import streamlit as st
-from st_xatadb_connection  import XataConnection,XataClient
+from st_xatadb_connection  import XataConnection
 from st_tiny_editor import tiny_editor
 import asyncio
 
 
-client = XataClient(st.secrets['XATA_API_KEY'],db_url=st.secrets['XATA_DB_URL'])
 st.set_page_config(layout='wide')
+xata = st.connection('xata',type=XataConnection)
 if 'login' not in st.session_state or not st.session_state.login:
     st.switch_page(page='Login.py')
 
@@ -51,7 +51,7 @@ if 'articles' not in st.session_state:
 
 st.title('Añadir Articulo')
 
-xata = st.connection('xata',type=XataConnection)
+
 
 titulo = st.text_input('Titulo')
 tags = ['python','streamlit','xata','data','data-science','programming','machine-learning','deep-learning','artificial-intelligence','data-visualization','data-analysis','data-engineering']
