@@ -1,12 +1,10 @@
 import streamlit as st
-from st_xatadb_connection  import XataConnection,XataClient
+from st_xatadb_connection  import XataConnection
 from st_tiny_editor import tiny_editor
 import asyncio
 import time
 import requests
 
-
-client = XataClient(st.secrets['XATA_API_KEY'],db_url=st.secrets['XATA_DB_URL'])
 st.set_page_config(layout='wide')
 xata = st.connection('xata',type=XataConnection)
 if 'login' not in st.session_state or not st.session_state.login:
