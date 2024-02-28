@@ -4,6 +4,6 @@ enableXsrfProtection=false # IMPORTANTE FALLO STREAMLIT ELIMINAR CUANDO SEA CORR
 [theme]
 primaryColor="#F63366"
 backgroundColor="#edf2f4"
-secondaryBackgroundColor="#1d3557"
+secondaryBackgroundColor="#67A6FF"
 textColor="#2b2d42"
 font="monospace"

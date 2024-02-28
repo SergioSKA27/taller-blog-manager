@@ -9,6 +9,9 @@ import requests
 client = XataClient(st.secrets['XATA_API_KEY'],db_url=st.secrets['XATA_DB_URL'])
 st.set_page_config(layout='wide')
 xata = st.connection('xata',type=XataConnection)
+if 'login' not in st.session_state or not st.session_state.login:
+    st.switch_page(page='Login.py')
+
 
 #--------------------------------------------------------------------------
 #Funciones

@@ -6,6 +6,9 @@ import asyncio
 
 client = XataClient(st.secrets['XATA_API_KEY'],db_url=st.secrets['XATA_DB_URL'])
 st.set_page_config(layout='wide')
+if 'login' not in st.session_state or not st.session_state.login:
+    st.switch_page(page='Login.py')
+
 
 async def insert_article(title,tags,banner,contenido):
     await asyncio.sleep(0.1)
