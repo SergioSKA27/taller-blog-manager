@@ -1,9 +1,7 @@
 import streamlit as st
-from st_xatadb_connection  import XataConnection,XataClient
+from st_xatadb_connection  import XataConnection
 import time
 
-
-client = XataClient(st.secrets['XATA_API_KEY'],db_url=st.secrets['XATA_DB_URL'])
 st.set_page_config(layout='wide')
 xata = st.connection('xata',type=XataConnection)
 
@@ -19,6 +17,7 @@ def update_messages():
     'filter':{
         'leido':{"$is": False}
     }})
+
 def update_read_messages():
     st.session_state.read_messages = xata.query("Mensaje",{"columns": [
         "emisor",
@@ -30,6 +29,7 @@ def update_read_messages():
     'filter':{
         'leido':{"$is": True}
     }})
+
 def mark_as_read(message_id):
     try:
         response = xata.update("Mensaje",message_id,{"leido":True})
@@ -92,7 +92,7 @@ if 'read_messages' not in st.session_state:
     })
 
 
-#st.write(st.session_state.messages)
+
 st.title('Mensajes')
 if st.button('Actualizar mensajes',on_click=update_messages,use_container_width=True):
     update_read_messages()
