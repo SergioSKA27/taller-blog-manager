@@ -79,7 +79,7 @@ def render_editor():
     contenido = None
     with st.form(key='editor_form1'):
         contenido = tiny_editor(st.secrets['TINY_API_KEY'],
-                                initialValue=st.session_state.article['contenido'],
+                                initialValue=st.session_state.article['contenido'] if 'contenido' in st.session_state.article else '',
                                 height=600,
                                 key='welcomeeditor1',
                                 toolbar = 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
@@ -99,7 +99,7 @@ def render_editor():
             payload['titulo'] = titulo
         if tg != st.session_state.article['tags']:
             payload['tags'] = tg
-        if contenido != st.session_state.article['contenido']:
+        if 'contenido' not in st.session_state.article or  contenido != st.session_state.article['contenido']:
             payload['contenido'] = contenido
         if len(payload)>0:
             try:
