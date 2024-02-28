@@ -2,7 +2,6 @@ import streamlit as st
 from st_xatadb_connection  import XataConnection
 from st_tiny_editor import tiny_editor
 import asyncio
-import requests
 
 st.set_page_config(layout='wide')
 xata = st.connection('xata',type=XataConnection)
