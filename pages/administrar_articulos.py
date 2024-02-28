@@ -17,7 +17,7 @@ if 'login' not in st.session_state or not st.session_state.login:
 #Funciones
 async def get_random_image(query='random'):
     try:
-        result = await asyncio.to_thread(requests.get, f'https://source.unsplash.com/random/600x400?{query}',timeout=1)
+        result = await asyncio.to_thread(requests.get, f'https://source.unsplash.com/random/600x400?{query}',timeout=.1)
         return result.content
     except Exception as e:
         print(e)
@@ -34,7 +34,7 @@ def get_articles():
 
 
 def update_articles():
-    st.session_state.articles = get_articles()['records']
+    st.session_state.articles = get_articles()
 
 def set_editor(article):
     st.session_state.article = article
@@ -117,26 +117,38 @@ def render_editor():
                 st.error(f'Error: {e}')
 
 if 'articles' not in st.session_state:
-    st.session_state.articles = get_articles()['records']
+    st.session_state.articles = get_articles()
 
 if 'article' not in st.session_state:
     st.session_state.article = None
 
+
+
+st.title('Administrar Articulos',help='Desde esta página puedes ver, editar y eliminar los articulos publicados en tu blog')
+
+_,ref = st.columns([0.8,0.2])
+if ref.button('Refrescar',use_container_width=True):
+    update_articles()
+    st.rerun()
 cols = st.columns(3)
 k= 0
-
-
-
-
-
 
 if st.session_state.article:
     render_editor()
 
 else:
-    for article in st.session_state.articles:
+    for article in st.session_state.articles['records']:
         with cols[k]:
             render_article(article)
         k+=1
         if k==3:
             k=0
+
+    if st.button('Mostrar más',use_container_width=True):
+        ndata = xata.next_page("Articulo",st.session_state.articles)
+        if ndata is not None:
+            st.session_state.articles = ndata
+            st.rerun()
+    if st.button('Volver al inicio',use_container_width=True):
+        update_articles()
+        st.rerun()

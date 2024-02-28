@@ -17,7 +17,7 @@ if 'login' not in st.session_state or not st.session_state.login:
 #Funciones
 async def get_random_image(query='random'):
     try:
-        result = await asyncio.to_thread(requests.get, f'https://source.unsplash.com/random/600x400?{query}',timeout=1)
+        result = await asyncio.to_thread(requests.get, f'https://source.unsplash.com/random/600x400?{query}',timeout=.1)
         return result.content
     except Exception as e:
         print(e)
